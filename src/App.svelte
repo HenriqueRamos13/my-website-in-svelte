@@ -121,9 +121,9 @@
     if (!wheelDeltaY) {
       var new_mouse_y = e.changedTouches[0].pageY || e.pageY;
       if (new_mouse_y - mouse_y > 75) {
-        wheelDeltaY = 1;
-      } else if (new_mouse_y - mouse_y < -75) {
         wheelDeltaY = -1;
+      } else if (new_mouse_y - mouse_y < -75) {
+        wheelDeltaY = 1;
       }
       moveSections(wheelDeltaY);
     }
