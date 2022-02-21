@@ -55,6 +55,8 @@
     },
   ];
 
+  var mouse_x;
+  var mouse_y;
   let currentStep: number = 0;
 
   type Step = {
@@ -109,12 +111,34 @@
     }
   }
 
-  $: console.log(steps.map((step: Step) => step.index));
-
   function mouseWheel(e) {
     var direction = e.deltaY > 0 ? 1 : -1;
     moveSections(direction);
   }
+
+  function verify(e) {
+    var wheelDeltaY = e.wheelDeltaY;
+    if (!wheelDeltaY) {
+      var new_mouse_y = e.changedTouches[0].pageY || e.pageY;
+      if (new_mouse_y - mouse_y > 75) {
+        wheelDeltaY = 1;
+      } else if (new_mouse_y - mouse_y < -75) {
+        wheelDeltaY = -1;
+      }
+      moveSections(wheelDeltaY);
+    }
+  }
+
+  function get_mouse_coords(e) {
+    mouse_x = e.pageX;
+    mouse_y = e.changedTouches[0].pageY || e.pageY;
+  }
+
+  window.addEventListener("touchstart", get_mouse_coords, false);
+  window.addEventListener(
+    "touchmove",
+    debounce((e) => verify(e), 500)
+  );
 
   window.addEventListener("mousemove", (e) => {
     if (window.innerWidth < 640) {
