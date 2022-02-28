@@ -46,10 +46,8 @@
     },
     {
       step: 4,
-      stepTitle: "Contato",
-      src: "images/image1.webp",
-      alt: "imagem",
-      title: "Contato",
+      stepTitle: "Contact",
+      title: "Contact",
       index: 5,
       component: Contact,
     },
@@ -62,8 +60,8 @@
   type Step = {
     step: number;
     stepTitle: string;
-    src: string;
-    alt: string;
+    src?: string;
+    alt?: string;
     title: string;
     index: number;
     component?: any;
@@ -197,6 +195,8 @@
           this={section.component}
           last={section.index === -1}
           index={section.index}
+          title={section.title}
+          center={section.index === 0}
         />
       {:else}
         <Section
